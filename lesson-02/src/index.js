@@ -1,6 +1,3 @@
-import Slider, {Button} from './script';
+import {business} from './makeBusiness';
 
-const slide = new Slider(123,324,54);
-
-slide.showInfo();
-console.log(Button());
+business.aboutBussines();
