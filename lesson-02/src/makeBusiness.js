@@ -13,8 +13,9 @@ class makeBusiness{
     }
     
 	aboutBussines() {
-        console.log(`We have a business. Owner: ${this.owner}, director: ${this.director}. Our budget: ${this.cash}. 
-And our employers:${this.emp}
+        const {owner, cash, emp, director} = this;
+        console.log(`We have a business. Owner: ${owner}, director: ${director}. Our budget: ${cash}. 
+And our employers:${emp}
 And we have a sponsors: 
 ${sumSponsors}
 Note. Be careful with ${danger}. It's a huge risk.`)}
