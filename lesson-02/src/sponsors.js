@@ -1,15 +1,19 @@
-let sponsors = {
-	cash: [40000, 5000, 30400, 12000],
-	eu: ['SRL', 'PLO', 'J&K'],
-	rus: ['RusAuto', 'SBO']
-};
+export default class Sponsors {
+	constructor (sponsors) {
+		this.sponsors = sponsors;
+	}
 
-function calcCash(own = 0, everyCash) {
-   // [everyCash] = everyCash;
-	return own + everyCash.filter(elem => !isNaN(elem))
-						  .reduce((sum, cash) => sum + cash);
+	calcCash(own = 0, everyCash) {		
+		return own + everyCash.filter(elem => !isNaN(elem))
+							  .reduce((sum, cash) => sum + cash);
+	}
+
+	getSponsorInfo() {
+		const {cash, eu, rus} = this.sponsors;
+		return {
+			cash : this.calcCash(null, cash),
+			sumSponsors: [...eu, ...rus, 'unexpected sponsor'].join(' '),
+			danger: eu[0]
+		};
+	}
 }
-
-const money = calcCash(null, sponsors.cash);
-
-export {sponsors, money};
