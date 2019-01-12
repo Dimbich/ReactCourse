@@ -26,7 +26,7 @@ Note. Be careful with ${danger}. It's a huge risk.`)}
 }
 
 const emp = new Employers(employers);
-const propsSponsor =new Sponsors(sponsors).getSponsorInfo();
+const propsSponsor =new Sponsors(sponsors).getSponsorInfo(13);
 const business = new makeBusiness('Sam',  propsSponsor, emp.getEmployersNames());
 
 export {business};

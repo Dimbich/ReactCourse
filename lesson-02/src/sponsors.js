@@ -8,10 +8,10 @@ export default class Sponsors {
 							  .reduce((sum, cash) => sum + cash);
 	}
 
-	getSponsorInfo() {
+	getSponsorInfo(own) {
 		const {cash, eu, rus} = this.sponsors;
 		return {
-			cash : this.calcCash(null, cash),
+			cash : this.calcCash(own, cash),
 			sumSponsors: [...eu, ...rus, 'unexpected sponsor'].join(' '),
 			danger: eu[0]
 		};
