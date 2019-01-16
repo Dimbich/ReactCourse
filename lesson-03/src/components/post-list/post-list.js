@@ -1,6 +1,7 @@
 import React from 'react';
 import PostListItem from '../post-list-item';
 import './post-list.css';
+import { ListGroup } from 'reactstrap';
 
 const PostList = ({posts,  showForm}) => {
     
@@ -9,13 +10,15 @@ const PostList = ({posts,  showForm}) => {
         return(
             <li key={id} className="list-group-item">
                 <PostListItem  {...itemProps}
-                showForm={()=>{showForm(id)}}/>
+                showForm={id}/>
             </li>
         )}   
         );
-    return <ul className="app-list list-group">
-        {elem}
-    </ul>
+    return (
+        <ListGroup className="app-list">
+            {elem}
+        </ListGroup>
+    ) 
 }
 
 export default PostList;

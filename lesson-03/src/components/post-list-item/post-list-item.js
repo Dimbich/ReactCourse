@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import './post-list-item.css';
+import './post-list-item.sass';
+import EditModalForm from '../edit-modal-form';
+
 
 export default class PostListItem extends Component {
     state = {
@@ -16,7 +18,7 @@ export default class PostListItem extends Component {
     }
 
     render() {
-        const {label, showForm} = this.props;
+        const {label} = this.props;
         const {important, like} = this.state;
         const [day, month] = new Date().toLocaleDateString("ru",{month:"short", day:"numeric"}).split(' ');
         //console.log(newDate);
@@ -41,13 +43,8 @@ export default class PostListItem extends Component {
                 <span className="date">
                     <span className="month">{month}</span>
                     <span className="day">{day}</span>
-                </span>
-                    <button
-                        type="button"
-                        className="btn-edit btn-sm"
-                        onClick={showForm}>
-                        <i className="fa fa-edit"></i>
-                    </button>
+                </span>                   
+                    <EditModalForm label={label} />
                     <button 
                         type = "button"
                         className = "btn-star btn-sm"

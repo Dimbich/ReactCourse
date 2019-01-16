@@ -4,8 +4,7 @@ import SearchPanel from '../search-panel';
 import PostStatusFilter from '../post-status-filter';
 import PostList from '../post-list';
 import PostAddForm from '../post-add-from';
-import EditModalForm from '../edit-modal-form';
-import './app.css';
+import style from './App.module.css';
 
 export default class App extends Component {
     state = {
@@ -13,27 +12,24 @@ export default class App extends Component {
                 {label:'Проверка', id:'dfg'},
                 {label:'Второй элемент', id:'gdfd'},
                 {label:'Третий элемент', id:'324'}],
-       isOpen: false        
+      // isOpen: false        
     }
 
-    toggleModal = (id) => {
-        console.log(id, this.state.isOpen);
-        this.setState(state=>({isOpen: !state.isOpen}));
-        return id;
-    }
+    // toggleModal = (id) => {
+    //     this.setState(state=>({isOpen: !state.isOpen}));
+    // }
 
     render(){
-        const {date:data, isOpen} = this.state;
+        const {date:data} = this.state;
         return(
-            <div className="app">
-                <AppHeader />
+            <div className={style.app}>
+                <AppHeader all={data.length}/>
                 <div className="search-panel d-flex">
                     <SearchPanel/>
                     <PostStatusFilter />
                 </div>
                 <PostList posts={data}  showForm={this.toggleModal}/>
-                <PostAddForm />
-                <EditModalForm visable={isOpen} onClose={this.toggleModal} title="Редактирование твита"/>           
+                <PostAddForm />                          
             </div>            
         )
     }
