@@ -5,20 +5,20 @@ import EditModalForm from '../edit-modal-form';
 
 export default class PostListItem extends Component {
     state = {
-        important: false,
+        important: this.props.important,
         like: false
     }
 
     onImporatant = () => {
-        this.setState(state=>({important:!state.important}))
+        this.setState(({important})=>({important:!important}))
     }
 
     onLike = () => {
-        this.setState(state=>({like:!state.like}))
+        this.setState(({like})=>({like:!like}))
     }
 
     render() {
-        const {label} = this.props;
+        const {id, label, OnDelete, OnEdit} = this.props;
         const {important, like} = this.state;
         const [day, month] = new Date().toLocaleDateString("ru",{month:"short", day:"numeric"}).split(' ');
         //console.log(newDate);
@@ -44,7 +44,7 @@ export default class PostListItem extends Component {
                     <span className="month">{month}</span>
                     <span className="day">{day}</span>
                 </span>                   
-                    <EditModalForm label={label} />
+                    <EditModalForm label={label}  id={id} OnEdit={OnEdit}/>
                     <button 
                         type = "button"
                         className = "btn-star btn-sm"
@@ -53,7 +53,8 @@ export default class PostListItem extends Component {
                     </button>
                     <button 
                         type="button"
-                        className="btn-trash btn-sm">
+                        className="btn-trash btn-sm"
+                        onClick={OnDelete}>
                         <i className="fa fa-trash-o"></i>
                     </button>
                     <i className="fa fa-heart"></i>                  

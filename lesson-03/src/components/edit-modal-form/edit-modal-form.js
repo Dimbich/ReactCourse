@@ -8,16 +8,16 @@ export default class EditModalForm extends Component {
     };
 
   toggle = () => {
-    this.setState(state=>({modal:!state.modal}));
+    this.setState(({modal})=>({modal:!modal, labelText: this.props.label}));
   }
 
   
   handleChange = (e) => {
-     this.setState({ labelText: e.target.value })
+     this.setState({ labelText: e.target.value })     
   }
 
   render() {
-    const {className} = this.props;
+    const {id, className, OnEdit} = this.props;
     const {modal, labelText}= this.state;
     return (
       <div>
@@ -34,7 +34,7 @@ export default class EditModalForm extends Component {
             <Input value={labelText} onChange={this.handleChange}/>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>Do Something</Button>
+            <Button color="primary" onClick={()=>{OnEdit(id, labelText); this.toggle()}}>Do Something</Button>
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>
