@@ -4,22 +4,8 @@ import EditModalForm from '../edit-modal-form';
 
 
 export default class PostListItem extends Component {
-    state = {
-        important: this.props.important,
-        like: false
-    }
-
-    onImporatant = () => {
-        this.setState(({important})=>({important:!important}))
-    }
-
-    onLike = () => {
-        this.setState(({like})=>({like:!like}))
-    }
-
     render() {
-        const {id, label, OnDelete, OnEdit} = this.props;
-        const {important, like} = this.state;
+        const {id, label, OnDelete, OnEdit, onToggleImportant, onToggleLiked, important, like} = this.props;
         const [day, month] = new Date().toLocaleDateString("ru",{month:"short", day:"numeric"}).split(' ');
         //console.log(newDate);
         let classNames ='app-list-item d-flex justify-content-between';
@@ -35,7 +21,7 @@ export default class PostListItem extends Component {
             <div className={classNames}>
                 <span 
                     className="app-list-item-label"
-                    onClick={this.onLike}>
+                    onClick={onToggleLiked}>
                     {label}
                 </span>
                 
@@ -48,7 +34,7 @@ export default class PostListItem extends Component {
                     <button 
                         type = "button"
                         className = "btn-star btn-sm"
-                        onClick = {this.onImporatant}>
+                        onClick = {onToggleImportant}>
                         <i className="fa fa-star"></i>
                     </button>
                     <button 

@@ -19,6 +19,7 @@ export default class EditModalForm extends Component {
   render() {
     const {id, className, OnEdit} = this.props;
     const {modal, labelText}= this.state;
+    
     return (
       <div>
         <button

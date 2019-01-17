@@ -17,15 +17,13 @@ export default class App extends Component {
     maxId = 100;
     state = {
         date: [
-                {label:'Проверка', important:  true, id: 1},
-                {label:'Второй элемент',  important:  false, id: 2},
-                {label:'Третий элемент',  important:  false, id: 3}],
+                {label:'Проверка', important:  true, like: false, id: 1},
+                {label:'Второй элемент',  important:  false, like: false, id: 2},
+                {label:'Третий элемент',  important:  false, like: false, id: 3}],
+        term:'',
+        filter:'all'
       // isOpen: false        
     }
-
-    // toggleModal = (id) => {
-    //     this.setState(state=>({isOpen: !state.isOpen}));
-    // }
 
     deleteID = (id) => {
         this.setState(({date})=>{
@@ -35,13 +33,30 @@ export default class App extends Component {
         });
     }
 
-    editItem = (id, label) =>{
-        this.setState(({date})=>{
+    editItem = (id, label) => {
+        this.setState(({date})=> {
             const index = date.findIndex(elem => elem.id === id);
             const newArray = [...date.slice(0,index),{id, label},...date.slice(index+1)];
             return {date: newArray}
         });
     }
+
+    onToggle = (id,eventAction) => {
+        this.setState(({date})=> {
+            const index = date.findIndex(elem => elem.id === id);
+            const old = date[index];
+            const newItem = {...old, [eventAction]:!old[eventAction]}
+            const newArray = [...date.slice(0,index), newItem,...date.slice(index+1)];
+            return {date: newArray}
+        });
+    }
+
+    searchPost = (data, text) => {
+        const reg = new RegExp(text,'i');
+         return  text ? data.filter(({label}) => reg.test(label)) : data;        
+    }
+
+
 
     addItem = (body) => {
         const generateKey = (pre) => {
@@ -59,16 +74,37 @@ export default class App extends Component {
         })
     }
 
+    onUpdateSearch = (term) => {
+        this.setState(({term}));
+    }
+
+    filterPost = (items, filter) => {
+        return filter==='like' ? items.filter(item=>item.like) : items;
+    }
+
+    onFilterSelect = (filter) => {
+        this.setState(({filter}));
+    }
+
     render(){
-        const {date:data} = this.state;
+        const {date:data, term, filter} = this.state;
+        const allPost = data.length;
+        const likedPost = data.filter(item=>item.like).length;
+        const visablePost = this.filterPost(this.searchPost(data, term), filter);
         return(
             <AppBlock>
-                <AppHeader all={data.length}/>
+                <AppHeader all={allPost} like={likedPost}/>
                 <div className="search-panel d-flex">
-                    <SearchPanel/>
-                    <PostStatusFilter />
+                    <SearchPanel onUpdateSearch={this.onUpdateSearch}/>
+                    <PostStatusFilter 
+                    filter={filter}
+                    onFilterSelect={this.onFilterSelect}/>
                 </div>
-                <PostList posts={data}  OnDelete={this.deleteID} OnEdit={this.editItem}/>
+                <PostList 
+                    posts={visablePost}  
+                    OnDelete={this.deleteID} 
+                    OnEdit={this.editItem}
+                    onToggle={this.onToggle}/>
                 <PostAddForm 
                     onAdd={this.addItem}/>                          
             </AppBlock>            

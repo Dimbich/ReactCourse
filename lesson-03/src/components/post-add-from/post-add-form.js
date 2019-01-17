@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './post-add-form.css';
 import {Button, Input} from 'reactstrap';
 
@@ -14,19 +14,33 @@ const BottomPanel = styled.form`
       }
 `
 
- const PostAddForm = ({onAdd}) => {
-     return (
-        <BottomPanel>
-            <Input
-                placeholder="О чем вы думаете сейчас"
-                className="form-control new-post-label"/>
-            <Button 
-                outline color="secondary"
-                onClick = {()=>{onAdd('fgfdgfd')}}>
-                Добавить
-            </Button>
-        </BottomPanel>
-     )
- }
+export default class PostAddForm extends Component{
+    state = {
+        text:''
+    }
 
- export default PostAddForm;
+    handleChange = ({target:{value}}) => {
+        this.setState({ text: value })     
+     }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        this.props.onAdd(this.state.text);
+        this.setState({ text: '' });
+    }
+    
+    render(){
+        return (
+            <BottomPanel onSubmit = {this.onSubmit}>
+                <Input
+                    placeholder="О чем вы думаете сейчас"
+                    className="form-control new-post-label"
+                    onChange ={this.handleChange}
+                    value={this.state.text}/>
+                <Button outline color="secondary">
+                    Добавить
+                </Button>
+            </BottomPanel>
+         )
+    }
+}
