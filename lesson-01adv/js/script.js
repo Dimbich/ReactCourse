@@ -1,44 +1,22 @@
-// let images = [ 'img/img_1.jpg','img/img_2.jpg', 'img/img_3.jpg'];
+const images = ['img/img_1.jpg1', 'img/img_2.jpg', 'img/img_3.jpg'];
 
-// for (let image of images) {
-//     document.createElement();
-// }
+const imgBlock = document.querySelector('.imageBlock');
 
-// function loadImage(path) {
-//     return new Promise((resolve, reject) => {
+const showImage = (path) => {
+   return new Promise((resolve, reject) => {
+      let img = new Image();
+      img.src = path;
+      img.onload = () => resolve(img);
+      img.onerror = () => reject('Ошибка при загрузке изображения' + path);
+   });
+};
 
-//     })
-// }
-
-
-class Slider {
-    constructor (width, height, count) {
-        this.width = width;
-        this.height = height;
-        this.count = count;
-    }
-
-    nextSlide(){
-        console.log('next slide');
-    }
-    prevSlide(){
-        console.log('prev slide');
-    }
-    showInfo(){
-        console.log( this.width, this.height, this.count)
-    }
-}
-
-class AutoSlider extends Slider {
-    constructor(width, height, count, auto){
-        super(width, height, count);
-        this.auto = auto;
-    }
-    play(){
-        console.log(`Autoplay is ${this.auto}`);
-    }
-}
-
-const aslide = new AutoSlider(1,2,3,true);
-
-aslide.play();
+Promise.all(images.map(path => showImage(path)))
+   .then(images => {
+      for (let img of images) {
+         img.width = img.width / 10;
+         img.height = img.height / 10;
+         imgBlock.appendChild(img);
+      }
+   })
+   .catch(err => console.error(err));
