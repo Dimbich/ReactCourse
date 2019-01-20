@@ -21,10 +21,34 @@ const Header = styled.div`
 `
 
 const AppHeader = ({all, like})=>{
+   const getCountRecText = (num)=>{
+      let countRec; 
+      num +='';
+      let lastTwoNumber = +[...num].slice(-2).join('');
+      
+      if (lastTwoNumber > 19 ) {
+          lastTwoNumber=+lastTwoNumber.toString().slice(-1);      
+      } 
+      switch (lastTwoNumber) {
+       case 1 :
+           countRec='запись';
+           break;
+       case 2:
+       case 3:
+       case 4:
+           countRec='записи';
+           break;     
+       default:
+           countRec='записей';
+           break;  
+      }
+      return countRec;
+   };
+
    return (
       <Header colored>
          <h1>Dmitriy Shirmanov</h1>
-         <h2>{all} записей, {like} из них понравилась</h2>
+         <h2>{all} {getCountRecText(all)}, {like} из них понравилась</h2>
       </Header >
    )
 }
