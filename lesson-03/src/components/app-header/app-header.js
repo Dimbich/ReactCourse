@@ -24,10 +24,12 @@ const AppHeader = ({all, like})=>{
    const getCountRecText = (num)=>{
       let countRec; 
       num +='';
-      let lastTwoNumber = +[...num].slice(-2).join('');
+      let lastTwoNumber = num%100;
+      // можно проще немного у Саши подсматрел 
+      // lastTwoNumber = num%100;
       
       if (lastTwoNumber > 19 ) {
-          lastTwoNumber=+lastTwoNumber.toString().slice(-1);      
+          lastTwoNumber=lastTwoNumber%10;      
       } 
       switch (lastTwoNumber) {
        case 1 :
