@@ -4,7 +4,7 @@ import SearchPanel from '../search-panel';
 import PostStatusFilter from '../post-status-filter';
 import PostList from '../post-list';
 import PostAddForm from '../post-add-from';
-
+import keygen from 'keygenerator';
 
 import styled from 'styled-components';
 
@@ -44,13 +44,15 @@ export default class App extends Component {
     }
 
     addItem = (body) => {
-        const generateKey = (pre) => {
-            return `${ pre }_${ new Date().getTime() }`;
-        }
+        // const generateKey = (pre) => {
+        //     return `${ pre }_${ new Date().getTime() }`;
+        // }
+
+        //Генерация ключа с помощью подключенного пакета
         const newItem = {
             label: body,
             important: false,
-            id: generateKey(body)
+            id: keygen._()
         }
         
         this.setState(({date})=>{

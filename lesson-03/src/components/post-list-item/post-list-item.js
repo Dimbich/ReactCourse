@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './post-list-item.sass';
-import EditModalForm from '../edit-modal-form';
+import ModalForm from '../modal-form';
+//import DeleteModalForm from '../delete-modal-form';
 
 
 export default class PostListItem extends Component {
@@ -44,19 +45,15 @@ export default class PostListItem extends Component {
                     <span className="month">{month}</span>
                     <span className="day">{day}</span>
                 </span>                   
-                    <EditModalForm label={label}  id={id} OnEdit={OnEdit}/>
+                    <ModalForm type="edit" label={label}  id={id} onAction={OnEdit}/>
                     <button 
                         type = "button"
                         className = "btn-star btn-sm"
                         onClick = {this.onImporatant}>
                         <i className="fa fa-star"></i>
                     </button>
-                    <button 
-                        type="button"
-                        className="btn-trash btn-sm"
-                        onClick={OnDelete}>
-                        <i className="fa fa-trash-o"></i>
-                    </button>
+                    <ModalForm type="delete" label={label}  id={id} onAction={OnDelete}/>
+                    {/*<DeleteModalForm onDelete={()=>{OnDelete(id)}}/>*/}
                     <i className="fa fa-heart"></i>                  
                 </div>
             </div>
