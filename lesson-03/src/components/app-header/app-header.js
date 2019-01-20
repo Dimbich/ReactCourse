@@ -31,15 +31,15 @@ const AppHeader = ({all, like})=>{
       } 
       switch (lastTwoNumber) {
        case 1 :
-           countRec='запись';
+           countRec=`${num} запись`;
            break;
        case 2:
        case 3:
        case 4:
-           countRec='записи';
+           countRec=`${num} записи`;
            break;     
        default:
-           countRec='записей';
+           countRec=`${num} записей`;
            break;  
       }
       return countRec;
@@ -48,7 +48,7 @@ const AppHeader = ({all, like})=>{
    return (
       <Header colored>
          <h1>Dmitriy Shirmanov</h1>
-         <h2>{all} {getCountRecText(all)}, {like} из них понравилась</h2>
+         <h2>{getCountRecText(all)}, {like} из них понравилась</h2>
       </Header >
    )
 }
